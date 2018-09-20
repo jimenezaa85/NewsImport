@@ -88,15 +88,16 @@ namespace NewsImportTest.sitecore.admin
             char[] charArray;
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
 
-            byte[] firstString = uniEncoding.GetBytes("Invalid file path characters are: ");
+            byte[] firstString = uniEncoding.GetBytes("Hola ");
 
-            byte[] secondString = uniEncoding.GetBytes(Path.GetInvalidPathChars());
+            //byte[] secondString = uniEncoding.GetBytes(Path.GetInvalidPathChars());
+            byte[] secondString = uniEncoding.GetBytes(" Alberto");
+
 
             using (MemoryStream memStream = new MemoryStream(100))
             {
                 // Write the first string to the stream.
                 memStream.Write(firstString, 0, firstString.Length);
-
                 // Write the second string to the stream, byte by byte.
                 count = 0;
                 while (count < secondString.Length)
@@ -128,7 +129,14 @@ namespace NewsImportTest.sitecore.admin
                 // and write it to the console.
                 charArray = new char[uniEncoding.GetCharCount(byteArray, 0, count)];
                 uniEncoding.GetDecoder().GetChars(byteArray, 0, count, charArray, 0);
-                lblLog.Text=charArray.ToString();
+
+                string output = "";
+                for (int i =0; i<charArray.Length; i++)
+                {
+                    output += charArray[i].ToString();
+                }
+                 
+                lblLog.Text= output.ToString();
             }
 
         }
